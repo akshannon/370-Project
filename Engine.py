@@ -2,14 +2,12 @@ import ColorDict
 import TextToSpeech
 
 def main():
-    #start button use pip install pyusb
     first_color = None #color of first item
     coor_color = None #color we are looking for
     second_color = None #color of second item
 
     ttsp = TextToSpeech()
 
-    #if statement for start button
     while True:
         if (first_color == None): #haven't chosen first clothing item yet
             rgb = 0 #get RGB from camera
