@@ -1,0 +1,3 @@
+evdev
+pyttsx3
+numpy
