@@ -1,12 +1,15 @@
 import ColorDict
-import TextToSpeech
+import Desktop
 
 def main():
     first_color = None #color of first item
     coor_color = None #color we are looking for
     second_color = None #color of second item
 
-    ttsp = TextToSpeech()
+    ttsp = Desktop()
+
+    # camera take a picture
+    # 
 
     while True:
         if (first_color == None): #haven't chosen first clothing item yet
