@@ -2,6 +2,7 @@ import pyttsx3
 #pip install pyttsx3 to install to the system
 
 class TextToSpeech:
+    global engine
     engine = pyttsx3.init()
     #add changes to volume, voice, rate, etc as needed
 
