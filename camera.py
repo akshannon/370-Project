@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 def getColor(frame, k=6):
-    # Convert BGR (OpenCV default) to RGB
+    # Convert OpenCV default BGR to RGB
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     # Resize to 100x100 for faster processing

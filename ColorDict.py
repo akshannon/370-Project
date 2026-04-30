@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 
 # Dictionary of accessible colors with their RGB values
-# Kept small and distinct so the camera has a better chance of matching correctly
 ACCESSIBLE_COLORS = {
     "White": (255, 255, 255),
     "Light Grey": (211, 211, 211),
@@ -22,14 +21,14 @@ ACCESSIBLE_COLORS = {
 
 def get_closest_color(rgb):
     # Use LAB color space instead of RGB for perceptually accurate distance matching
-    # LAB matches how humans see color differences, RGB does not
+    # LAB matches how humans see color differences
     names = list(ACCESSIBLE_COLORS.keys())
 
     # Convert input RGB to LAB
     rgb_array = np.uint8([[rgb]])
     lab_input = cv2.cvtColor(rgb_array, cv2.COLOR_RGB2LAB)[0][0].astype(float)
 
-    # Convert entire palette to LAB
+    # Convert entire color palette to LAB
     palette = np.uint8([[list(v) for v in ACCESSIBLE_COLORS.values()]])
     lab_palette = cv2.cvtColor(palette, cv2.COLOR_RGB2LAB)[0].astype(float)
 

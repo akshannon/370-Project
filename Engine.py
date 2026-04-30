@@ -1,13 +1,13 @@
 import ColorDict
-import camera
+import Camera
 import socket
 import json
 
 DESKTOP_PORT = 65432
 
 def get_desktop_ip():
-    # Resolve Mac hostname dynamically so we don't need to hardcode an IP
-    # This works as long as both devices are on the same network
+    #  Mac hostname so we don't need to hardcode an IP
+    # PI works as long as both devices are on the same network
     import socket as s
     return s.gethostbyname("Makaelas-MacBook-Air-423.local")
 
@@ -24,8 +24,8 @@ def send_colors(current_color, complement_colors):
     print(f"Sent: {current_color} / {complement_colors}")
 
 def main():
-    # Take a picture and get the dominant color as RGB
-    rgb = camera.takePicture(k=6)
+    # Take a picture and get the color as RGB
+    rgb = Camera.takePicture(k=6)
 
     # Match RGB to closest named color and find complements
     current_color = ColorDict.get_closest_color(rgb)
