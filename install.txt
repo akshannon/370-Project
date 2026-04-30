@@ -1,4 +1,4 @@
 evdev
 pyttsx3
 numpy
-cv2
+opencv-python
