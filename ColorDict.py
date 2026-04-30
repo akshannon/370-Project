@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 ACCESSIBLE_COLORS = {
     # neutrals
@@ -27,24 +28,20 @@ ACCESSIBLE_COLORS = {
     "Brown": (139, 69, 19), "Dark Brown": (61, 43, 31)
 }
 
-
-# finds the nearest neighbor in the ACCESSIBLE_COLORS dictionary
 def get_closest_color(rgb):
     names = list(ACCESSIBLE_COLORS.keys())
-    palette_values = np.array(list(ACCESSIBLE_COLORS.values()))
     
-    # use euclidean distance
-    distances = np.linalg.norm(palette_values - np.array(rgb), axis=1)
+    # Convert input RGB to LAB
+    rgb_array = np.uint8([[rgb]])
+    lab_input = cv2.cvtColor(rgb_array, cv2.COLOR_RGB2LAB)[0][0].astype(float)
     
-    # find the index of the smallest distance
-    min_index = np.argmin(distances)
+    # Convert palette to LAB
+    palette = np.uint8([[list(v) for v in ACCESSIBLE_COLORS.values()]])
+    lab_palette = cv2.cvtColor(palette, cv2.COLOR_RGB2LAB)[0].astype(float)
     
-    return names[min_index]
+    distances = np.linalg.norm(lab_palette - lab_input, axis=1)
+    return names[np.argmin(distances)]
 
-# finds the complement color 
 def get_complement_color(rgb):
-    # calculate the mathematical opposite
     complement_rgb = [255 - val for val in rgb]
-    
-    # find the closest name for that opposite
     return get_closest_color(complement_rgb)

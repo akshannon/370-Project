@@ -9,8 +9,8 @@ def getColor(frame, k=4):
 
     pixels = image.reshape(-1, 3)
 
-    lower_threshold = 30
-    upper_threshold = 225
+    lower_threshold = 15
+    upper_threshold = 240
 
     mask = np.all((pixels > lower_threshold) & (pixels < upper_threshold), axis=1)
     filtered_pixels = pixels[mask]

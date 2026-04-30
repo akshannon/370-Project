@@ -17,7 +17,7 @@ def send_colors(current_color, complement_color):
     print(f"Sent: {current_color} / {complement_color}")
  
 def main():
-    rgb = camera.takePicture()
+    rgb = camera.takePicture(k=6)
     current_color = ColorDict.get_closest_color(rgb)
     complement_color = ColorDict.get_complement_color(rgb)  
     send_colors(current_color, complement_color)
