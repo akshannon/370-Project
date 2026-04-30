@@ -3,7 +3,7 @@ import camera
 import socket
 import json
  
-DESKTOP_IP = "192.168.1.XXX"  # <-- Change this to your computer's local IP
+DESKTOP_IP = "10.255.143.119"  
 DESKTOP_PORT = 65432
  
 def send_colors(current_color, complement_color):
