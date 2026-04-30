@@ -4,15 +4,15 @@ import json
 
 PORT = 65432
 
-engine = pyttsx3.init()
 # Tweak voice/rate/volume here if needed
 # engine.setProperty('rate', 150)
 # engine.setProperty('volume', 1.0)
 
 def text_to_speech(current_color, complement_color):
-    engine.stop()
+    engine = pyttsx3.init()
     engine.say(f'This item is {current_color}. You can pair it with {complement_color}.')
     engine.runAndWait()
+    engine.stop()
 
 def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
