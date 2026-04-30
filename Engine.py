@@ -18,9 +18,12 @@ def send_colors(current_color, complement_color):
  
 def main():
     rgb = camera.takePicture()
+    print(f"Raw RGB: {rgb}")  # add this
     current_color = ColorDict.get_closest_color(rgb)
-    complement_color = ColorDict.get_complement_color(rgb)  
+    complement_color = ColorDict.get_complement_color(rgb)
+    print(f"Detected: {current_color}, Complement: {complement_color}")
     send_colors(current_color, complement_color)
+    
  
 if __name__ == "__main__":
     main()
