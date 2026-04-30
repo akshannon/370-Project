@@ -2,11 +2,14 @@ import cv2
 import numpy as np
 
 def getColor(frame, k=6):
-    # Convert BGR to RGB
+    # Convert BGR (OpenCV default) to RGB
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    # Resize to 100x100 for faster processing
     image = cv2.resize(image, (100, 100))
     pixels = np.float32(image.reshape(-1, 3))
 
+    # K-means clustering to find the k most dominant colors
     criteria = (
         cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,
         10,
@@ -22,6 +25,7 @@ def getColor(frame, k=6):
         cv2.KMEANS_RANDOM_CENTERS
     )
 
+    # Return the most dominant color cluster as RGB
     centers = np.uint8(centers)
     counts = np.bincount(labels.flatten())
     dominant_color = centers[np.argmax(counts)]

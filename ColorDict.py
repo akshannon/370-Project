@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 
+# Dictionary of accessible colors with their RGB values
+# Kept small and distinct so the camera has a better chance of matching correctly
 ACCESSIBLE_COLORS = {
     "White": (255, 255, 255),
     "Light Grey": (211, 211, 211),
@@ -19,19 +21,38 @@ ACCESSIBLE_COLORS = {
 }
 
 def get_closest_color(rgb):
+    # Use LAB color space instead of RGB for perceptually accurate distance matching
+    # LAB matches how humans see color differences, RGB does not
     names = list(ACCESSIBLE_COLORS.keys())
-    
+
     # Convert input RGB to LAB
     rgb_array = np.uint8([[rgb]])
     lab_input = cv2.cvtColor(rgb_array, cv2.COLOR_RGB2LAB)[0][0].astype(float)
-    
-    # Convert palette to LAB
+
+    # Convert entire palette to LAB
     palette = np.uint8([[list(v) for v in ACCESSIBLE_COLORS.values()]])
     lab_palette = cv2.cvtColor(palette, cv2.COLOR_RGB2LAB)[0].astype(float)
-    
+
+    # Find the color with the smallest LAB distance to the input
     distances = np.linalg.norm(lab_palette - lab_input, axis=1)
     return names[np.argmin(distances)]
 
 def get_complement_color(rgb):
+    # Calculate the mathematical complement (opposite on color wheel)
     complement_rgb = [255 - val for val in rgb]
-    return get_closest_color(complement_rgb)
+
+    names = list(ACCESSIBLE_COLORS.keys())
+
+    # Convert palette to LAB
+    palette = np.uint8([[list(v) for v in ACCESSIBLE_COLORS.values()]])
+    lab_palette = cv2.cvtColor(palette, cv2.COLOR_RGB2LAB)[0].astype(float)
+
+    # Convert complement RGB to LAB
+    rgb_array = np.uint8([[complement_rgb]])
+    lab_input = cv2.cvtColor(rgb_array, cv2.COLOR_RGB2LAB)[0][0].astype(float)
+
+    # Return the top 3 closest colors to the complement
+    distances = np.linalg.norm(lab_palette - lab_input, axis=1)
+    top3_indices = np.argsort(distances)[:3]
+
+    return [names[i] for i in top3_indices]
