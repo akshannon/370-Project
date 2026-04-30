@@ -21,17 +21,21 @@ def start_server():
         print(f"Listening for Pi on port {PORT}...")
 
         while True:
-            conn, addr = server.accept()
-            with conn:
-                print(f"Connected from {addr}")
-                data = b""
-                while chunk := conn.recv(1024):
-                    data += chunk
-                payload = json.loads(data.decode("utf-8"))
-                current_color = payload["current_color"]
-                complement_color = payload["complement_color"]
-                print(f"Received: {current_color} / {complement_color}")
-                text_to_speech(current_color, complement_color)
+            try:
+                conn, addr = server.accept()
+                with conn:
+                    print(f"Connected from {addr}")
+                    data = b""
+                    while chunk := conn.recv(1024):
+                        data += chunk
+                    payload = json.loads(data.decode("utf-8"))
+                    current_color = payload["current_color"]
+                    complement_color = payload["complement_color"]
+                    print(f"Received: {current_color} / {complement_color}")
+                    text_to_speech(current_color, complement_color)
+            except Exception as e:
+                print(f"Error: {e}, continuing...")
+                continue
 
 if __name__ == "__main__":
     start_server()

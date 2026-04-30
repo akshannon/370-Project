@@ -58,8 +58,3 @@ def takePicture(camera_index=0):
         raise RuntimeError("Could not read image from webcam")
 
     return getColor(frame)
-
-
-# Example
-color = takePicture()
-print("Filtered Majority Color RGB:", color)
