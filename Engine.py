@@ -3,7 +3,7 @@ import camera
 import socket
 import json
  
-DESKTOP_IP = "10.255.143.119"  
+DESKTOP_IP = socket.gethostbyname("Makaelas-MacBook-Air-423.local")  
 DESKTOP_PORT = 65432
  
 def send_colors(current_color, complement_color):
